@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>UNBEX — Entrena con propósito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Manrope:wght@300;400;500&family=Montserrat:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:none;cursor:pointer;background:transparent;color:inherit}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:0.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes widen{from{width:0}to{width:100%}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
+.reveal{opacity:0;animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards}
+.reveal.d1{animation-delay:.1s}
+.reveal.d2{animation-delay:.25s}
+.reveal.d3{animation-delay:.4s}
+.reveal.d4{animation-delay:.55s}
+.reveal.d5{animation-delay:.7s}
+.scroll-reveal{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.scroll-reveal.visible{opacity:1;transform:translateY(0)}
+
+:root{--bg:#f5f7f2;--surface:#ffffff;--text:#1a2e1a;--muted:#6b7a60;--accent:#4a7c59;--accent-soft:rgba(74,124,89,0.1);--border:#dde6d5;--font-display:'Cormorant Garamond',serif;--font-body:'Manrope',sans-serif}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:16px;line-height:1.7}
+h1,h2,h3{font-family:var(--font-display);letter-spacing:-0.015em;line-height:1.1;font-weight:500}
+nav{position:sticky;top:0;z-index:50;padding:20px 40px;backdrop-filter:blur(16px);background:rgba(255,255,255,0.75)}
+nav .inner{display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto}
+nav .logo{font-family:var(--font-display);font-size:24px;font-weight:500}
+nav .cta{font-size:14px;font-weight:500;padding:12px 24px;background:var(--accent);color:#fff;border-radius:999px;transition:all .3s}
+nav .cta:hover{transform:translateY(-2px);box-shadow:0 12px 32px #4a7c5950}
+@media(max-width:768px){nav{padding:16px 20px}nav .logo{font-size:20px}}
+.hero{padding:80px 40px 120px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:var(--accent-soft);border-radius:50%;filter:blur(80px);z-index:0;animation:float 20s ease-in-out infinite alternate}
+.hero::after{content:'';position:absolute;bottom:-200px;left:-100px;width:500px;height:500px;background:#4a7c5915;border-radius:50%;filter:blur(100px);z-index:0;animation:float 25s ease-in-out infinite alternate-reverse}
+@keyframes float{from{transform:translate(0,0)}to{transform:translate(60px,80px)}}
+.hero-inner{max-width:1400px;margin:0 auto;position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:100px;align-items:center;min-height:75vh}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:10px 20px;border-radius:999px;margin-bottom:40px;font-weight:600}
+.hero h1{font-size:clamp(48px,6.5vw,92px);margin-bottom:32px;font-weight:400;letter-spacing:-0.025em}
+.hero-about{font-size:19px;color:var(--muted);max-width:540px;margin-bottom:48px;line-height:1.75}
+.cta-row{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:12px;padding:18px 36px;background:var(--accent);color:#fff;font-weight:500;font-size:15px;border-radius:999px;transition:all .4s cubic-bezier(.2,.8,.2,1)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 20px 48px #4a7c5955}
+.btn-soft{display:inline-flex;align-items:center;gap:12px;padding:17px 35px;background:var(--accent-soft);color:var(--accent);font-weight:500;font-size:15px;border-radius:999px;transition:all .3s}
+.btn-soft:hover{background:var(--accent);color:#fff}
+.hero-visual{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.12)}
+.hero-visual img{width:100%;height:100%;object-fit:cover}
+.hero-visual::before{content:'';position:absolute;inset:-20px;border:1px solid var(--accent);border-radius:50%;z-index:-1;opacity:0.3}
+@media(max-width:968px){.hero-grid{grid-template-columns:1fr;gap:56px}.hero-visual{max-width:400px;margin:0 auto}}
+.proof{padding:32px 40px;background:var(--surface);border-radius:32px;max-width:1200px;margin:0 auto;box-shadow:0 8px 32px rgba(0,0,0,0.04)}
+.proof-inner{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.proof-big{font-family:var(--font-display);font-size:40px;color:var(--accent);font-weight:500}
+.stars{letter-spacing:4px;color:var(--accent);font-size:18px}
+section.block{padding:140px 40px;position:relative}
+.block-inner{max-width:1400px;margin:0 auto}
+@media(max-width:768px){section.block{padding:80px 20px}}
+.about-wrap{background:var(--surface);padding:100px 80px;border-radius:48px;display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;position:relative;overflow:hidden}
+.about-wrap::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:var(--accent-soft);border-radius:50%;filter:blur(60px);z-index:0}
+.about-wrap > *{position:relative;z-index:1}
+.about-label{font-size:12px;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:16px}
+.about-title{font-size:clamp(32px,4vw,48px);font-weight:400;letter-spacing:-0.02em}
+.about-body{font-size:18px;line-height:1.85;color:var(--text)}
+@media(max-width:968px){.about-wrap{grid-template-columns:1fr;gap:32px;padding:60px 32px;border-radius:32px}}
+.services-wrap{margin-top:120px}
+.services-head{text-align:center;margin-bottom:80px}
+.services-head .label{display:inline-block;font-size:12px;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:8px 18px;border-radius:999px;font-weight:600;margin-bottom:24px}
+.services-head h2{font-size:clamp(40px,5vw,68px);font-weight:400;max-width:800px;margin:0 auto;letter-spacing:-0.025em}
+.svc-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.svc-card{padding:48px 40px;background:var(--surface);border-radius:32px;transition:all .5s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,var(--accent-soft),transparent 60%);opacity:0;transition:opacity .5s}
+.svc-card:hover::before{opacity:1}
+.svc-card:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 24px 56px rgba(0,0,0,0.08)}
+.svc-card:nth-child(2n):hover{transform:translateY(-8px) rotate(1deg)}
+.svc-icon{width:56px;height:56px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:20px;font-weight:600;margin-bottom:28px;position:relative;z-index:1}
+.svc-card h3{font-size:22px;margin-bottom:12px;font-weight:500;position:relative;z-index:1}
+.svc-card p{color:var(--muted);font-size:15px;line-height:1.7;position:relative;z-index:1}
+@media(max-width:968px){.svc-cards{grid-template-columns:1fr}}
+.diff-wrap{margin-top:140px;background:var(--accent);padding:120px 80px;border-radius:48px;color:#fff}
+.diff-label{display:inline-block;font-size:12px;letter-spacing:0.25em;text-transform:uppercase;background:rgba(255,255,255,0.2);padding:8px 18px;border-radius:999px;font-weight:600;margin-bottom:24px}
+.diff-title{font-size:clamp(36px,5vw,60px);font-weight:400;color:#fff;margin-bottom:64px;max-width:800px;letter-spacing:-0.02em}
+.diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:56px}
+.diff-item .circle{width:72px;height:72px;background:rgba(255,255,255,0.18);color:#fff;font-family:var(--font-display);font-size:28px;font-weight:500;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:28px;border:1px solid rgba(255,255,255,0.3)}
+.diff-item h3{font-size:22px;color:#fff;font-weight:500;margin-bottom:14px}
+.diff-item p{color:rgba(255,255,255,0.85);font-size:15px;line-height:1.7}
+@media(max-width:968px){.diff-grid{grid-template-columns:1fr;gap:40px}.diff-wrap{padding:60px 32px;border-radius:32px}}
+.contact-wrap{text-align:center;padding:160px 40px}
+.contact-wrap h2{font-size:clamp(52px,7vw,104px);font-weight:400;margin-bottom:40px;letter-spacing:-0.03em}
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:720px;margin:56px auto 48px}
+.contact-pill{padding:32px;background:var(--surface);border-radius:24px;text-align:left;transition:all .3s}
+.contact-pill:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.06)}
+.contact-label{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:500}
+.contact-value{font-family:var(--font-display);font-size:20px;font-weight:500}
+@media(max-width:640px){.contact-grid{grid-template-columns:1fr}.contact-wrap{padding:80px 20px}}
+footer.main{padding:80px 40px 48px;background:var(--surface);border-radius:48px 48px 0 0}
+footer.main .inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;max-width:1400px;margin:0 auto}
+footer.main .brand{font-family:var(--font-display);font-size:32px;font-weight:500;margin-bottom:16px}
+footer.main .tag{color:var(--muted);font-size:14px;max-width:320px;line-height:1.7}
+footer.main .col h4{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;font-weight:600}
+footer.main .col p{font-size:14px;line-height:1.7}
+@media(max-width:768px){footer.main{padding:56px 24px 32px;border-radius:32px 32px 0 0}footer.main .inner{grid-template-columns:1fr;gap:32px}}
+</style></head><body>
+<nav><div class="inner"><span class="logo">UNBEX</span><a href="https://wa.me/5491123989560" target="_blank" rel="noopener" class="cta">Empezar</a></div></nav>
+<section class="hero"><div class="hero-inner"><div class="hero-grid">
+<div>
+<div class="hero-eyebrow reveal">Bienestar</div>
+<h1 class="reveal d1">Entrena con propósito</h1>
+<p class="hero-about reveal d2">En UNBEX, nuestro equipo de profesionales experimentados se dedica a brindar un entorno de entrenamiento personalizado y exigente. Nuestro gimnasio, ubicado en Pacheco 1956, C1431 Cdad. Autónoma de Buenos Aires, ofrece espacios modernos y equipados para satisfacer las necesidades de nuestros socios</p>
+<div class="cta-row reveal d3">
+<a href="https://wa.me/5491123989560" target="_blank" rel="noopener" class="btn-primary">Empezar →</a>
+<a href="tel:01123989560" class="btn-soft">Llamar →</a>
+</div></div>
+<div class="hero-visual reveal d4"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1600&q=80&auto=format&fit=crop" alt="UNBEX"/></div>
+</div></div></section>
+<div style="padding:0 40px"><div class="proof"><div class="proof-inner">
+<span class="proof-big">4.6</span><span class="stars">★★★★★</span>
+
+<span>Pacheco 1956, C1431 Cdad. Autónoma de Buenos Aires, Argentina</span>
+</div></div></div>
+<section class="block scroll-reveal"><div class="block-inner">
+<div class="about-wrap">
+<div><div class="about-label">Nosotros</div><h2 class="about-title">Entrena con propósito</h2></div>
+<div class="about-body">En UNBEX, nuestro equipo de profesionales experimentados se dedica a brindar un entorno de entrenamiento personalizado y exigente. Nuestro gimnasio, ubicado en Pacheco 1956, C1431 Cdad. Autónoma de Buenos Aires, ofrece espacios modernos y equipados para satisfacer las necesidades de nuestros socios</div>
+</div>
+<div class="services-wrap">
+<div class="services-head">
+<span class="label">Servicios</span>
+<h2>Lo que ofrecemos</h2>
+</div>
+<div class="svc-cards">
+<div class="svc-card scroll-reveal" style="transition-delay:0ms">
+<div class="svc-icon">01</div>
+<h3>Entrenamiento Personalizado</h3><p>Nuestros entrenadores diseñan planes de entrenamiento a medida para cada socio, asegurando objetivos realistas y alcanzables</p>
+</div><div class="svc-card scroll-reveal" style="transition-delay:80ms">
+<div class="svc-icon">02</div>
+<h3>Clases de Grupo</h3><p>Ofrecemos una variedad de clases, desde cardio y fuerza hasta flexibilidad y equilibrio, para todos los niveles y edades</p>
+</div><div class="svc-card scroll-reveal" style="transition-delay:160ms">
+<div class="svc-icon">03</div>
+<h3>Entrenamiento de Fuerza</h3><p>Nuestro equipo de entrenadores especializados en fuerza te guiará en el uso de equipos y técnicas para maximizar tus resultados</p>
+</div><div class="svc-card scroll-reveal" style="transition-delay:240ms">
+<div class="svc-icon">04</div>
+<h3>Nutrición y Suplementación</h3><p>Nuestros expertos en nutrición ofrecen asesoramiento personalizado para optimizar tu dieta y lograr tus objetivos de entrenamiento</p>
+</div><div class="svc-card scroll-reveal" style="transition-delay:320ms">
+<div class="svc-icon">05</div>
+<h3>Evaluaciones Físicas</h3><p>Realizamos evaluaciones físicas completas para determinar tu condición física actual y establecer metas realistas</p>
+</div><div class="svc-card scroll-reveal" style="transition-delay:400ms">
+<div class="svc-icon">06</div>
+<h3>Talleres y Seminarios</h3><p>Organizamos talleres y seminarios sobre temas relacionados con el fitness, la nutrición y el bienestar, para educar y motivar a nuestros socios</p>
+</div>
+</div></div></div></section>
+<section class="block scroll-reveal"><div class="block-inner">
+<div class="diff-wrap">
+<span class="diff-label">Nuestro enfoque</span>
+<h2 class="diff-title">Tres principios que nos definen</h2>
+<div class="diff-grid">
+<div class="diff-item scroll-reveal" style="transition-delay:0ms">
+<div class="circle">01</div>
+<h3>Equipo Experto</h3><p>Nuestro equipo de entrenadores y profesionales cuenta con años de experiencia y formación en el ámbito del fitness</p>
+</div><div class="diff-item scroll-reveal" style="transition-delay:100ms">
+<div class="circle">02</div>
+<h3>Entorno Personalizado</h3><p>Nuestro gimnasio está diseñado para ofrecer un entorno cómodo y acogedor, donde cada socio se sienta valorado y apoyado</p>
+</div><div class="diff-item scroll-reveal" style="transition-delay:200ms">
+<div class="circle">03</div>
+<h3>Tecnología Avanzada</h3><p>Contamos con equipamiento de última generación y sistemas de monitoreo para garantizar la seguridad y eficacia de los entrenamientos</p>
+</div>
+</div></div></div></section>
+<section class="contact-wrap scroll-reveal">
+<h2>Conversemos.</h2>
+
+<a href="https://wa.me/5491123989560" target="_blank" rel="noopener" class="btn-primary">Escribinos por WhatsApp →</a>
+</section>
+<footer class="main"><div class="inner">
+<div><div class="brand">UNBEX</div><p class="tag">En UNBEX, nuestro equipo de profesionales experimentados se dedica a brindar un entorno de entrenamiento personalizado y exigente. Nuestro gimnasio, ubicado en Pacheco 1956, C1431 Cdad. Autónoma de Buenos Aires, ofrece espacios modernos y equipados para satisfacer las necesidades de nuestros socios</p></div>
+<div class="col"><h4>Contacto</h4></div>
+<div class="col"><h4>Rubro</h4><p>Gimnasio</p></div>
+</div></footer>
+<div class="eterlab-credit">
+  <div class="eterlab-credit-inner">
+    <p>©2026 | diseñado y desarrollado por <a href="https://eterlab.co/" target="_blank" rel="noreferrer">eterlab.</a></p>
+  </div>
+</div>
+<style>
+.eterlab-credit{background:#212121}
+.eterlab-credit-inner{max-width:1536px;margin:0 auto;padding:8px 16px}
+.eterlab-credit p{text-align:center;font-size:12px;color:rgba(255,255,255,0.8);font-family:'Montserrat',sans-serif;font-weight:400;margin:0;letter-spacing:0.01em}
+.eterlab-credit a{font-style:italic;color:rgba(255,255,255,0.9);transition:color .2s;text-decoration:none;font-weight:500}
+.eterlab-credit a:hover{color:#fff}
+</style><a href="https://wa.me/5491123989560" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+<style>
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:99;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(37,211,102,0.35);transition:all .3s cubic-bezier(.2,.8,.2,1)}
+.wa-float:hover{transform:scale(1.08) rotate(-5deg);box-shadow:0 20px 40px rgba(37,211,102,0.45)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+</style><script>
+(function(){
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.scroll-reveal').forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.scroll-reveal').forEach(el => io.observe(el));
+})();
+</script>
+</body></html>
